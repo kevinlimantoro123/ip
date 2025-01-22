@@ -116,6 +116,19 @@ public class HelperBot {
         System.out.println(task.toString());
     }
 
+    public static void deleteTask(int index) {
+        if(index > taskList.size()) {
+            System.out.println("Please provide valid task number");
+            return;
+        }
+        int i = index - 1;
+        Task task = taskList.get(i);
+        taskList.remove(i);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
     public static void handleTask(String input) {
         String[] msg = input.split(" ");
         String command = msg[0];
@@ -140,6 +153,14 @@ public class HelperBot {
                 }
                 int index2 = Integer.parseInt(msg[1]);
                 unmarkTask(index2);
+                break;
+            case "delete":
+                if (msg.length < 2) {
+                    System.out.println("Please provide task number to delete");
+                    break;
+                }
+                int index3 = Integer.parseInt(msg[1]);
+                deleteTask(index3);
                 break;
             default:
                 addTask(input);
