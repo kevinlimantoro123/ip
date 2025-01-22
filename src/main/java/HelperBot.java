@@ -49,13 +49,15 @@ public class HelperBot {
             System.out.println("Task cannot be empty");
             return;
         }
-        if (task.contains(" ")) {
-            System.out.println("Please provide a task description");
+        if (task.split(" ").length < 2) {
+            System.out.println("Please provide a valid task");
             return;
         }
-
         String[] str = task.split("/");
         Task newTask = getTask(task, str);
+        if (newTask == null) {
+            return;
+        }
         taskList.add(newTask);
         System.out.println("Got it. I've added this task:\n" + newTask.toString());
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -64,6 +66,11 @@ public class HelperBot {
     private static Task getTask(String task, String[] str) {
         Task newTask;
         if(str.length == 1) {
+            String temp = task.split(" ", 2)[0];
+            if (!temp.equals("todo")) {
+                System.out.println("Please provide a valid task");
+                return null;
+            }
             String desc = task.split(" ", 2)[1];
             newTask = new Todo(desc);
         } else if (str.length == 2) {
@@ -86,6 +93,10 @@ public class HelperBot {
     }
 
     public static void markTask (int index) {
+        if(index > taskList.size()) {
+            System.out.println("Please provide valid task number");
+            return;
+        }
         int i = index - 1;
         Task task = taskList.get(i);
         task.setDone(true);
@@ -94,6 +105,10 @@ public class HelperBot {
     }
 
     public static void unmarkTask(int index) {
+        if(index > taskList.size()) {
+            System.out.println("Please provide valid task number");
+            return;
+        }
         int i = index - 1;
         Task task = taskList.get(i);
         task.setDone(false);
@@ -126,11 +141,9 @@ public class HelperBot {
                 int index2 = Integer.parseInt(msg[1]);
                 unmarkTask(index2);
                 break;
-            case "todo":
+            default:
                 addTask(input);
                 break;
-            default:
-                System.out.println("This is not a valid command! Please input a valid command");
         }
     }
 }
