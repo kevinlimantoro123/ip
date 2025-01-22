@@ -3,13 +3,13 @@ public class Event extends Task {
     protected String to;
 
     public Event(String desc, String from, String to) {
-        super(desc);
+        super(desc, TaskType.EVENT);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[" + type.name().charAt(0) + "]" + super.toString() + "(from: " + from + "to: " + to + ")";
     }
 }

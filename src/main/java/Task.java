@@ -1,23 +1,29 @@
 public class Task {
-    private boolean done;
+    private boolean isDone;
     private String desc;
+    protected TaskType type;
 
-    public Task(String desc) {
-        this.done = false;
+    public Task(String desc, TaskType type) {
+        this.isDone = false;
         this.desc = desc;
+        this.type = type;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     public String getDesc() {
         return desc;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X] " + desc;
         } else {
             return "[ ] " + desc;
