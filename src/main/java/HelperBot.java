@@ -49,6 +49,11 @@ public class HelperBot {
             System.out.println("Task cannot be empty");
             return;
         }
+        if (task.contains(" ")) {
+            System.out.println("Please provide a task description");
+            return;
+        }
+
         String[] str = task.split("/");
         Task newTask = getTask(task, str);
         taskList.add(newTask);
@@ -106,16 +111,26 @@ public class HelperBot {
                 printTask();
                 break;
             case "mark":
+                if (msg.length < 2) {
+                    System.out.println("Please provide task number to mark");
+                    break;
+                }
                 int index1 = Integer.parseInt(msg[1]);
                 markTask(index1);
                 break;
             case "unmark":
+                if (msg.length < 2) {
+                    System.out.println("Please provide task number to unmark");
+                    break;
+                }
                 int index2 = Integer.parseInt(msg[1]);
                 unmarkTask(index2);
                 break;
-            default:
+            case "todo":
                 addTask(input);
                 break;
+            default:
+                System.out.println("This is not a valid command! Please input a valid command");
         }
     }
 }
