@@ -20,7 +20,11 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin HelperBot < input.txt > ACTUAL.TXT
+
+# trim trailing whitespace
+sed -i '' 's/[[:space:]]*$//' ACTUAL.TXT
+sed -i '' 's/[[:space:]]*$//' EXPECTED-UNIX.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

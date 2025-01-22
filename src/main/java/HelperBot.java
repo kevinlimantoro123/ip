@@ -8,11 +8,14 @@ public class HelperBot {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _    _      _       _            ____        _   \n"
+                + "| |  | |    | |     | |          |  _ \\      | |  \n"
+                + "| |__| | ___| |_ __ | | ___   _  | |_) | ___ | |_ \n"
+                + "|  __  |/ _ \\ | '_ \\| |/ / | | | |  _ < / _ \\| __|\n"
+                + "| |  | |  __/ | |_) |   <| |_| | | |_) | (_) | |_ \n"
+                + "|_|  |_|\\___|_| .__/|_|\\_\\\\__, | |____/ \\___/ \\__|\n"
+                + "              | |          __/ |                 \n"
+                + "              |_|         |___/                  \n";
         System.out.println("Hello from\n" + logo);
 
 
@@ -78,14 +81,16 @@ public class HelperBot {
     }
 
     public static void markTask (int index) {
-        Task task = taskList.get(index);
+        int i = index - 1;
+        Task task = taskList.get(i);
         task.setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
 
     public static void unmarkTask(int index) {
-        Task task = taskList.get(index);
+        int i = index - 1;
+        Task task = taskList.get(i);
         task.setDone(false);
         System.out.println("OK I've unmarked this task as done:");
         System.out.println(task.toString());
