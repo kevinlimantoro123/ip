@@ -26,7 +26,7 @@ public class HelperBot {
 
 
         String input = scanner.nextLine();
-        while (!Objects.equals(input, "bye")) {
+        while (!input.equals("bye")) {
             printHorizontalLine();
             handleTask(input);
             printHorizontalLine();
@@ -64,24 +64,36 @@ public class HelperBot {
     }
 
     private static Task getTask(String task, String[] str) {
-        Task newTask;
-        if(str.length == 1) {
-            String temp = task.split(" ", 2)[0];
-            if (!temp.equals("todo")) {
-                System.out.println("Please provide a valid task");
-                return null;
+        Task newTask = null;
+        String temp = task.split(" ", 2)[0];
+        switch (temp) {
+            case "todo" -> {
+                String desc = task.split(" ", 2)[1];
+                newTask = new Todo(desc);
             }
-            String desc = task.split(" ", 2)[1];
-            newTask = new Todo(desc);
-        } else if (str.length == 2) {
-            String desc = str[0].split(" ", 2)[1];
-            String date = str[1].split(" ", 2)[1];
-            newTask = new Deadline(desc, date);
-        } else {
-            String desc = str[0].split(" ", 2)[1];
-            String from = str[1].split(" ", 2)[1];
-            String to = str[2].split(" ", 2)[1];
-            newTask = new Event(desc, from, to);
+            case "deadline" -> {
+                String desc = str[0].split(" ", 2)[1];
+                if (str[1].split(" ").length == 1) {
+                    System.out.println("Please provide a deadline date");
+                    return null;
+                }
+                String date = str[1].split(" ", 2)[1];
+                newTask = new Deadline(desc, date);
+            }
+            case "event" -> {
+                String[] checker = task.split("/");
+                if (checker.length <3) {
+                    System.out.println("Please provide 'from' and 'to' timing");
+                    return null;
+                }
+                String desc = str[0].split(" ", 2)[1];
+                String[] fromArr = str[1].split(" ", 2);
+                String[] toArr = str[2].split(" ", 2);
+                String from = fromArr[1];
+                String to = toArr[1];
+                newTask = new Event(desc, from, to);
+            }
+            case "default" -> System.out.println("Please provide a valid task command");
         }
         return newTask;
     }
@@ -93,7 +105,7 @@ public class HelperBot {
     }
 
     public static void markTask (int index) {
-        if(index > taskList.size()) {
+        if(index > taskList.size() || index < 1) {
             System.out.println("Please provide valid task number");
             return;
         }
@@ -105,7 +117,7 @@ public class HelperBot {
     }
 
     public static void unmarkTask(int index) {
-        if(index > taskList.size()) {
+        if(index > taskList.size() || index < 1) {
             System.out.println("Please provide valid task number");
             return;
         }
