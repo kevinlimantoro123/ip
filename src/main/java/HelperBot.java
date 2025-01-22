@@ -42,9 +42,33 @@ public class HelperBot {
     }
 
     public static void addTask(String task) {
-        Task newTask = new Task(task);
+        if (task.trim().isEmpty()) {
+            System.out.println("Task cannot be empty");
+            return;
+        }
+        String[] str = task.split("/");
+        Task newTask = getTask(task, str);
         taskList.add(newTask);
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:\n" + newTask.toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private static Task getTask(String task, String[] str) {
+        Task newTask;
+        if(str.length == 1) {
+            String desc = task.split(" ", 2)[1];
+            newTask = new Todo(desc);
+        } else if (str.length == 2) {
+            String desc = str[0].split(" ", 2)[1];
+            String date = str[1].split(" ", 2)[1];
+            newTask = new Deadline(desc, date);
+        } else {
+            String desc = str[0].split(" ", 2)[1];
+            String from = str[1].split(" ", 2)[1];
+            String to = str[2].split(" ", 2)[1];
+            newTask = new Event(desc, from, to);
+        }
+        return newTask;
     }
 
     public static void printTask() {
