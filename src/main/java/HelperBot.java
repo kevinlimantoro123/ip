@@ -24,8 +24,10 @@ public class HelperBot {
                 + "              | |          __/ |                 \n"
                 + "              |_|         |___/                  \n";
 
+
+        String greeting = "Hello! I'm HelperBot\nWhat would you like to do?";
         System.out.println(logo);
-        String greeting = "Hello! I'm HelperBot\nWhat can I do for you?";
+
         String bye = "Bye! Hope to see you again soon!";
         System.out.println(greeting);
         printHorizontalLine();
