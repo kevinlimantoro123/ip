@@ -20,8 +20,6 @@ public class HelperBot {
                 + "|_|  |_|\\___|_| .__/|_|\\_\\\\__, | |____/ \\___/ \\__|\n"
                 + "              | |          __/ |                 \n"
                 + "              |_|         |___/                  \n";
-        System.out.println("Hello from\n" + logo);
-
 
         String greeting = "Hello! I'm HelperBot\nWhat can I do for you?";
         String bye = "Bye! Hope to see you again soon!";
