@@ -61,9 +61,4 @@ public class Deadline extends Task {
         }
         return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
     }
-    @Override
-    public String toSaveFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return "D | " + (isDone() ? "X" : " ") + " | " + getDesc() + " | " + dateTime.format(formatter);
-    }
 }

@@ -35,9 +35,6 @@ public class Task {
             return "[ ] " + description;
         }
     }
-    public String toSaveFormat() {
-        return type.name().charAt(0) + " | " + (isDone ? "X" : " ") + " | " + description;
-    }
 }
 
 

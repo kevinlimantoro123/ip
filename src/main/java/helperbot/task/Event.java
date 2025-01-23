@@ -16,10 +16,4 @@ public class Event extends Task {
     public String toString() {
         return "[" + type.name().charAt(0) + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
-
-    @Override
-    public String toSaveFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
-        return "E | " + (isDone() ? "X" : " ") + " | " + getDesc() + " | " + from + " | " + to;
-    }
 }

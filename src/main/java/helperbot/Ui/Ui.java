@@ -3,7 +3,7 @@ package helperbot.Ui;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void showWelcome() {
         String logo = " _    _      _       _            ____        _   \n"

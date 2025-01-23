@@ -42,13 +42,13 @@ public class AddCommand implements Command {
                 newTask = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
             }
             default -> {
-                ui.printError("I don't recognize that helperbot.command. Please use todo, deadline or event!");
+                ui.printError("I don't recognize that command. Please use todo, deadline or event!");
                 return;
             }
         }
 
         tasks.addTask(newTask);
         storage.saveToFile(tasks.getTaskList());
-        ui.printResponse("Got it. I've added this helperbot.task:\n" + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+        ui.printResponse("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 }
