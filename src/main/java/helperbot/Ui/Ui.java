@@ -1,3 +1,5 @@
+package helperbot.Ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -13,7 +15,7 @@ public class Ui {
                 + "              | |          __/ |                 \n"
                 + "              |_|         |___/                  \n";
         System.out.println(logo);
-        System.out.println("Hello! I'm HelperBot\nWhat would you like to do?");
+        System.out.println("Hello! I'm helperbot.HelperBot\nWhat would you like to do?");
         printHorizontalLine();
     }
 

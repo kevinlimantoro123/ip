@@ -1,3 +1,8 @@
+package helperbot.command;
+
+import helperbot.task.*;
+import helperbot.Ui.Ui;
+
 import java.io.IOException;
 
 public interface Command {

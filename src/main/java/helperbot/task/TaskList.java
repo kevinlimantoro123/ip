@@ -1,3 +1,5 @@
+package helperbot.task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +22,6 @@ public class TaskList {
         taskList.remove(index);
     }
 
-    public void markTask(int index) {
-        taskList.get(index).setDone(true);
-    }
-
-    public void unmarkTask(int index) {
-        taskList.get(index).setDone(false);
-    }
-
     public List<Task> getTaskList() {
         return taskList;
     }
@@ -38,5 +32,9 @@ public class TaskList {
 
     public Task getTask(int index) {
         return taskList.get(index);
+    }
+
+    public void setTask(List<Task> tasks) {
+        this.taskList = tasks;
     }
 }

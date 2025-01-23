@@ -1,3 +1,5 @@
+package helperbot.task;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,6 +59,11 @@ public class Deadline extends Task {
         } else {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
         }
-        return "[" + type.name().charAt(0) + "]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+    }
+    @Override
+    public String toSaveFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return "D | " + (isDone() ? "X" : " ") + " | " + getDesc() + " | " + dateTime.format(formatter);
     }
 }

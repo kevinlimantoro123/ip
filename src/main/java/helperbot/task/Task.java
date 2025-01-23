@@ -1,3 +1,5 @@
+package helperbot.task;
+
 public class Task {
     private boolean isDone;
     private String description;
@@ -5,7 +7,7 @@ public class Task {
 
     public Task(String description, TaskType type) {
         this.isDone = false;
-        this.description = description;
+        this.description = description.trim();
         this.type = type;
     }
 
@@ -32,6 +34,9 @@ public class Task {
         } else {
             return "[ ] " + description;
         }
+    }
+    public String toSaveFormat() {
+        return type.name().charAt(0) + " | " + (isDone ? "X" : " ") + " | " + description;
     }
 }
 

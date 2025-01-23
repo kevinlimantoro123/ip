@@ -1,3 +1,12 @@
+package helperbot;
+
+import helperbot.Ui.Ui;
+import helperbot.command.Command;
+import helperbot.command.ExitCommand;
+import helperbot.parser.Parser;
+import helperbot.task.Storage;
+import helperbot.task.TaskList;
+
 import java.io.IOException;
 
 public class HelperBot {
@@ -27,7 +36,7 @@ public class HelperBot {
                 command.execute(tasks, ui, storage);
                 isExit = command instanceof ExitCommand;
             } catch (IOException e) {
-                ui.printError("Error executing command: " + e.getMessage());
+                ui.printError("Error executing helperbot.command: " + e.getMessage());
             }
             ui.printHorizontalLine();
         }

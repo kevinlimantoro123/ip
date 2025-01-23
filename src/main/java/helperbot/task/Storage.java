@@ -1,7 +1,11 @@
+package helperbot.task;
+
+import helperbot.parser.Parser;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 public class Storage {
     private String filePath;
 
@@ -15,11 +19,11 @@ public class Storage {
         if (!data.exists()) {
             throw new FileNotFoundException("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
         }
-        try (Scanner fileScanner = new Scanner(data)) {
-            while (fileScanner.hasNextLine()) {
-                String task = fileScanner.nextLine();
-                if (!task.isEmpty()) {
-                    Task newTask = Parser.parseTask(task);
+        try (BufferedReader reader = new BufferedReader(new FileReader(data))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    Task newTask = Parser.parseTask(line);
                     if (newTask != null) {
                         taskList.add(newTask);
                     }
