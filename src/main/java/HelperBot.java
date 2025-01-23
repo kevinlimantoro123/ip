@@ -1,4 +1,7 @@
 import java.io.BufferedWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +24,7 @@ public class HelperBot {
                 + "              | |          __/ |                 \n"
                 + "              |_|         |___/                  \n";
 
+        System.out.println(logo);
         String greeting = "Hello! I'm HelperBot\nWhat can I do for you?";
         String bye = "Bye! Hope to see you again soon!";
         System.out.println(greeting);
@@ -82,7 +86,12 @@ public class HelperBot {
                     return null;
                 }
                 String date = str[1].split(" ", 2)[1];
-                newTask = new Deadline(description, date);
+                try {
+                    newTask = new Deadline(description, date);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
             }
             case "event" -> {
                 String[] checker = task.split("/");
