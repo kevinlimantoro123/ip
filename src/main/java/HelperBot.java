@@ -1,4 +1,7 @@
-import java.util.Objects;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +9,7 @@ import java.util.List;
 public class HelperBot {
     private static List<Task> taskList = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
+    private static final String FILE_PATH = "data/tasks.txt";
 
     public static void main(String[] args) {
         String logo = " _    _      _       _            ____        _   \n"
@@ -24,6 +28,7 @@ public class HelperBot {
         System.out.println(greeting);
         printHorizontalLine();
 
+        loadTask();
 
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
@@ -59,6 +64,7 @@ public class HelperBot {
             return;
         }
         taskList.add(newTask);
+        saveToFile();
         System.out.println("Got it. I've added this task:\n" + newTask.toString());
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
@@ -68,17 +74,17 @@ public class HelperBot {
         String temp = task.split(" ", 2)[0];
         switch (temp) {
             case "todo" -> {
-                String desc = task.split(" ", 2)[1];
-                newTask = new Todo(desc);
+                String description = task.split(" ", 2)[1];
+                newTask = new Todo(description);
             }
             case "deadline" -> {
-                String desc = str[0].split(" ", 2)[1];
+                String description = str[0].split(" ", 2)[1];
                 if (str[1].split(" ").length == 1) {
                     System.out.println("Please provide a deadline date");
                     return null;
                 }
                 String date = str[1].split(" ", 2)[1];
-                newTask = new Deadline(desc, date);
+                newTask = new Deadline(description, date);
             }
             case "event" -> {
                 String[] checker = task.split("/");
@@ -86,12 +92,12 @@ public class HelperBot {
                     System.out.println("Please provide 'from' and 'to' timing");
                     return null;
                 }
-                String desc = str[0].split(" ", 2)[1];
+                String description = str[0].split(" ", 2)[1];
                 String[] fromArr = str[1].split(" ", 2);
                 String[] toArr = str[2].split(" ", 2);
                 String from = fromArr[1];
                 String to = toArr[1];
-                newTask = new Event(desc, from, to);
+                newTask = new Event(description, from, to);
             }
             case "default" -> System.out.println("Please provide a valid task command");
         }
@@ -112,6 +118,7 @@ public class HelperBot {
         int i = index - 1;
         Task task = taskList.get(i);
         task.setDone(true);
+        saveToFile();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task.toString());
     }
@@ -124,6 +131,7 @@ public class HelperBot {
         int i = index - 1;
         Task task = taskList.get(i);
         task.setDone(false);
+        saveToFile();
         System.out.println("OK I've unmarked this task as done:");
         System.out.println(task.toString());
     }
@@ -136,6 +144,7 @@ public class HelperBot {
         int i = index - 1;
         Task task = taskList.get(i);
         taskList.remove(i);
+        saveToFile();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -147,8 +156,12 @@ public class HelperBot {
 
         switch (command) {
             case "list":
+                if (taskList.size() == 0) {
+                    System.out.println("You have no tasks in the list");
+                } else {
                 System.out.println("Here are the tasks in your list:");
                 printTask();
+                }
                 break;
             case "mark":
                 if (msg.length < 2) {
@@ -178,5 +191,81 @@ public class HelperBot {
                 addTask(input);
                 break;
         }
+    }
+
+    private static void saveToFile() {
+        File data = new File(FILE_PATH);
+        if (!data.exists()) {
+            System.out.println("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+        } else {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+                for (Task task : taskList) {
+                    writer.write(task.toString());
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error writing to file");
+            }
+        }
+    }
+
+    private static void loadTask() {
+        File data = new File(FILE_PATH);
+        if (!data.exists()) {
+            System.out.println("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+        } else {
+            try (Scanner fileScanner = new Scanner(data)) {
+                while (fileScanner.hasNextLine()) {
+                    String task = fileScanner.nextLine();
+                    Task newTask = parseTask(task);
+                    if (newTask == null) {
+                        return;
+                    }
+                    taskList.add(newTask);
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading file");
+            }
+        }
+    }
+
+    private static Task parseTask(String task) {
+        char type = task.charAt(1);
+        boolean isDone = task.charAt(4) == 'X';
+        String[] str = task.split(" ", 3);
+        String description;
+        if (isDone) {
+            description = str[1];
+        } else {
+            description = str[2];
+        }
+
+        switch(type) {
+            case 'T' -> {
+                return new Todo(description);
+            }
+            case 'D' -> {
+                String[] deadline = description.split("\\(by: ", 2);
+                String deadlineDescription = deadline[0];
+                String date = deadline[1].substring(0, deadline[1].length() - 1);
+                return new Deadline(deadlineDescription, date);
+            }
+            case 'E' -> {
+                String[] eventParts = description.split("\\(from: ", 2);
+                String eventDescription = eventParts[0];
+                String[] eventTiming = eventParts[1].split("to: ");
+                String from = eventTiming[0];
+                String to = eventTiming[1].substring(0, eventTiming[1].length() - 1);
+                return new Event(eventDescription, from, to);
+            }
+            default -> {
+                System.out.println("Invalid task type");
+                return null;
+            }
+
+
+        }
+
+
     }
 }
