@@ -1,7 +1,5 @@
 package helperbot.task;
 
-import java.time.format.DateTimeFormatter;
-
 public class Event extends Task {
     protected String from;
     protected String to;

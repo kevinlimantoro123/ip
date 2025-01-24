@@ -11,11 +11,7 @@ public class Task {
         this.type = type;
     }
 
-    public TaskType getType() {
-        return type;
-    }
-
-    public String getDesc() {
+    public String getDescription() {
         return description;
     }
 
