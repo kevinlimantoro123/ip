@@ -49,7 +49,8 @@ public class Deadline extends Task {
             }
         }
 
-        throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
+        throw new IllegalArgumentException
+                ("Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }
 
     @Override

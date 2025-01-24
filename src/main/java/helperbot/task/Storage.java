@@ -24,7 +24,8 @@ public class Storage {
         List<Task> taskList = new ArrayList<>();
         File data = new File(filePath);
         if (!data.exists()) {
-            throw new FileNotFoundException("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+            throw new FileNotFoundException
+                    ("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(data))) {
             String line;
@@ -43,7 +44,8 @@ public class Storage {
     public void saveToFile(List<Task> taskList) throws IOException {
         File data = new File(filePath);
         if (!data.exists()) {
-            throw new FileNotFoundException("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+            throw new FileNotFoundException
+                    ("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
         } else {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 for (Task task : taskList) {

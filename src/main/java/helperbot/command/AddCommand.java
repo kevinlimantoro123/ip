@@ -53,9 +53,9 @@ public class AddCommand implements Command {
                 return;
             }
         }
-
         tasks.addTask(newTask);
         storage.saveToFile(tasks.getTaskList());
-        ui.printResponse("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
+        ui.printResponse("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have "
+                + tasks.size() + " tasks in the list.");
     }
 }
