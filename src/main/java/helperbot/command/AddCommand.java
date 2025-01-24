@@ -11,13 +11,30 @@ import helperbot.task.Event;
 import helperbot.Ui.Ui;
 
 import java.io.IOException;
+
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand implements Command {
     private String input;
 
+    /**
+     * Constructs an AddCommand with the specified input.
+     *
+     * @param input The input string.
+     */
     public AddCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Executes the command to add a task.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage handler.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String[] parts = input.split(" ", 2);
@@ -53,7 +70,6 @@ public class AddCommand implements Command {
                 return;
             }
         }
-
         tasks.addTask(newTask);
         storage.saveToFile(tasks.getTaskList());
         ui.printResponse("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");

@@ -13,13 +13,27 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the storage interface for tasks.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath File path of the data file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the data file.
+     *
+     * @return List of tasks
+     * @throws IOException If an I/O error occurs
+     */
     public List<Task> loadTask() throws IOException {
         List<Task> taskList = new ArrayList<>();
         File data = new File(filePath);
@@ -40,6 +54,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks to the data file.
+     *
+     * @param taskList List of tasks
+     * @throws IOException If an I/O error occurs
+     */
     public void saveToFile(List<Task> taskList) throws IOException {
         File data = new File(filePath);
         if (!data.exists()) {

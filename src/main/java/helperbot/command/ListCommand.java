@@ -7,7 +7,18 @@ import helperbot.Ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to list all tasks in the task list.
+ */
 public class ListCommand implements Command {
+
+    /**
+     * Executes the command to list all tasks.
+     *
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage handler.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

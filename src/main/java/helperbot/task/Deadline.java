@@ -9,14 +9,30 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description Description of the deadline
+     * @param dateTime Date and time of the deadline
+     */
     public Deadline(String description, String dateTime) {
         super(description, TaskType.DEADLINE);
         this.dateTime = parseDateTime(dateTime);
     }
 
+    /**
+     * Parses the date and time of the deadline.
+     * Parses based on whether the user input contains hour and minute.
+     *
+     * @param dateTime Date and time of the deadline
+     * @return LocalDateTime object representing the date and time of deadline
+     */
     private LocalDateTime parseDateTime(String dateTime) {
         List<DateTimeFormatter> dateFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
@@ -52,6 +68,11 @@ public class Deadline extends Task {
         throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }
 
+    /**
+     * Returns the string representation of the deadline task.
+     *
+     * @return String representation of the deadline task
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter;
