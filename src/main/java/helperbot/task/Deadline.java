@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,8 +64,8 @@ public class Deadline extends Task {
             }
         }
 
-        throw new IllegalArgumentException
-                ("Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
+        throw new IllegalArgumentException(
+            "Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }
 
     /**

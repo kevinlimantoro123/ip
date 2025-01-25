@@ -1,5 +1,7 @@
 package helperbot;
 
+import java.io.IOException;
+
 import helperbot.Ui.Ui;
 import helperbot.command.Command;
 import helperbot.command.ExitCommand;
@@ -7,7 +9,6 @@ import helperbot.parser.Parser;
 import helperbot.task.Storage;
 import helperbot.task.TaskList;
 
-import java.io.IOException;
 
 /**
  * The main class of the HelperBot program.

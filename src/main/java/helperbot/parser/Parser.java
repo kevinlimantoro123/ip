@@ -1,18 +1,18 @@
 package helperbot.parser;
 
+import helperbot.command.AddCommand;
 import helperbot.command.Command;
+import helperbot.command.DeleteCommand;
+import helperbot.command.ExitCommand;
+import helperbot.command.FindCommand;
 import helperbot.command.ListCommand;
 import helperbot.command.MarkCommand;
 import helperbot.command.UnmarkCommand;
-import helperbot.command.DeleteCommand;
-import helperbot.command.ExitCommand;
-import helperbot.command.AddCommand;
-import helperbot.command.FindCommand;
-
-import helperbot.task.Task;
-import helperbot.task.Todo;
 import helperbot.task.Deadline;
 import helperbot.task.Event;
+import helperbot.task.Task;
+import helperbot.task.Todo;
+
 /**
  * Represents a parser to parse user input.
  */
@@ -23,33 +23,20 @@ public class Parser {
      * @param input The user input.
      * @return The corresponding command.
      */
+
     public static Command parse(String input) {
         String[] str = input.split(" ");
         String command = str[0];
 
-        switch (command) {
-            case "list" -> {
-                return new ListCommand();
-            }
-            case "mark" -> {
-                return new MarkCommand(Integer.parseInt(str[1]));
-            }
-            case "unmark" -> {
-                return new UnmarkCommand(Integer.parseInt(str[1]));
-            }
-            case "delete" -> {
-                return new DeleteCommand(Integer.parseInt(str[1]));
-            }
-            case "bye" -> {
-                return new ExitCommand();
-            }
-            case "find" -> {
-                return new FindCommand(input);
-            }
-            default -> {
-                return new AddCommand(input);
-            }
-        }
+        return switch (command) {
+        case "list" -> new ListCommand();
+        case "mark" -> new MarkCommand(Integer.parseInt(str[1]));
+        case "unmark" -> new UnmarkCommand(Integer.parseInt(str[1]));
+        case "delete" -> new DeleteCommand(Integer.parseInt(str[1]));
+        case "bye" -> new ExitCommand();
+        case "find" -> new FindCommand(input);
+        default -> new AddCommand(input);
+        };
     }
 
     /**
@@ -73,36 +60,36 @@ public class Parser {
 
         Task newTask;
         switch (type) {
-            case 'T' -> {
-                newTask = new Todo(description);
+        case 'T' -> {
+            newTask = new Todo(description);
+        }
+        case 'D' -> {
+            try {
+                String[] deadline = description.split("\\(by: ", 2);
+                String deadlineDescription = deadline[0].trim();
+                String date = deadline[1].substring(0, deadline[1].length() - 1);
+                newTask = new Deadline(deadlineDescription, date);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+                return null;
             }
-            case 'D' -> {
-                try {
-                    String[] deadline = description.split("\\(by: ", 2);
-                    String deadlineDescription = deadline[0].trim();
-                    String date = deadline[1].substring(0, deadline[1].length() - 1);
-                    newTask = new Deadline(deadlineDescription, date);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(e.getMessage());
-                    return null;
-                }
+        }
+        case 'E' -> {
+            try {
+                String[] eventParts = description.split("\\(from: ", 2);
+                String eventDescription = eventParts[0].trim();
+                String[] eventTiming = eventParts[1].split("to: ");
+                String from = eventTiming[0].trim();
+                String to = eventTiming[1].substring(0, eventTiming[1].length() - 1);
+                newTask = new Event(eventDescription, from, to);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+                return null;
             }
-            case 'E' -> {
-                try {
-                    String[] eventParts = description.split("\\(from: ", 2);
-                    String eventDescription = eventParts[0].trim();
-                    String[] eventTiming = eventParts[1].split("to: ");
-                    String from = eventTiming[0].trim();
-                    String to = eventTiming[1].substring(0, eventTiming[1].length() - 1);
-                    newTask = new Event(eventDescription, from, to);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(e.getMessage());
-                    return null;
-                }
-            }
-            default -> {
-                newTask = null;
-            }
+        }
+        default -> {
+            newTask = null;
+        }
         }
         if (newTask != null && isDone) {
             newTask.setDone(true);
@@ -110,4 +97,3 @@ public class Parser {
         return newTask;
     }
 }
-

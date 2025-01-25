@@ -1,12 +1,11 @@
 package helperbot.command;
 
+import java.util.List;
+
+import helperbot.Ui.Ui;
 import helperbot.task.Storage;
 import helperbot.task.Task;
 import helperbot.task.TaskList;
-
-import helperbot.Ui.Ui;
-
-import java.util.List;
 
 /**
  * Represents a command to find tasks in the task list.

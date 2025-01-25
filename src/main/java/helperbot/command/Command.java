@@ -1,10 +1,10 @@
 package helperbot.command;
 
+import java.io.IOException;
+
+import helperbot.Ui.Ui;
 import helperbot.task.Storage;
 import helperbot.task.TaskList;
-import helperbot.Ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to be executed.
