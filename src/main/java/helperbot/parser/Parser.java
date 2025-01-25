@@ -7,6 +7,7 @@ import helperbot.command.UnmarkCommand;
 import helperbot.command.DeleteCommand;
 import helperbot.command.ExitCommand;
 import helperbot.command.AddCommand;
+import helperbot.command.FindCommand;
 
 import helperbot.task.Task;
 import helperbot.task.Todo;
@@ -33,6 +34,9 @@ public class Parser {
             }
             case "bye" -> {
                 return new ExitCommand();
+            }
+            case "find" -> {
+                return new FindCommand(input);
             }
             default -> {
                 return new AddCommand(input);
