@@ -9,11 +9,18 @@ import helperbot.task.TaskList;
 
 import java.io.IOException;
 
+/**
+ * The main class of the HelperBot program.
+ */
 public class HelperBot {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructor for the HelperBot class.
+     * @param filePath The file path to the file where the tasks are stored.
+     */
     public HelperBot(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +32,9 @@ public class HelperBot {
         }
     }
 
+    /**
+     * Runs the HelperBot program.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -42,6 +52,11 @@ public class HelperBot {
         }
     }
 
+    /**
+     * The main method of the HelperBot program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new HelperBot("data/tasks.txt").run();
     }

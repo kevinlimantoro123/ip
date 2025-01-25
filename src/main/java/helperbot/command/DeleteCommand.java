@@ -1,12 +1,24 @@
 package helperbot.command;
 
-import helperbot.task.*;
+import helperbot.task.Storage;
+import helperbot.task.Task;
+import helperbot.task.TaskList;
+
 import helperbot.Ui.Ui;
 
 import java.io.IOException;
+
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand implements Command {
     private int index;
 
+    /**
+     * Constructs a DeleteCommand with the specified task index.
+     *
+     * @param index The index of the task to delete.
+     */
     public DeleteCommand(int index) {
         try {
             this.index = index;
@@ -15,6 +27,14 @@ public class DeleteCommand implements Command {
         }
     }
 
+    /**
+     * Executes the command to delete a task.
+     *
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage handler.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
         if (index == -1) {

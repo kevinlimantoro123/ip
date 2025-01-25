@@ -1,9 +1,27 @@
 package helperbot.parser;
 
-import helperbot.command.*;
-import helperbot.task.*;
+import helperbot.command.Command;
+import helperbot.command.ListCommand;
+import helperbot.command.MarkCommand;
+import helperbot.command.UnmarkCommand;
+import helperbot.command.DeleteCommand;
+import helperbot.command.ExitCommand;
+import helperbot.command.AddCommand;
 
+import helperbot.task.Task;
+import helperbot.task.Todo;
+import helperbot.task.Deadline;
+import helperbot.task.Event;
+/**
+ * Represents a parser to parse user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The corresponding command.
+     */
     public static Command parse(String input) {
         String[] str = input.split(" ");
         String command = str[0];
@@ -30,6 +48,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task and returns the corresponding task.
+     *
+     * @param task The task to be parsed.
+     * @return The corresponding task.
+     */
     public static Task parseTask(String task) {
         char type = task.charAt(1);
         boolean isDone = task.charAt(4) == 'X';
