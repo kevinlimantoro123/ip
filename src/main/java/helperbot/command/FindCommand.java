@@ -4,8 +4,6 @@ import helperbot.task.Storage;
 import helperbot.task.Task;
 import helperbot.task.TaskList;
 
-import helperbot.Ui.Ui;
-
 import java.util.List;
 
 /**
@@ -27,19 +25,17 @@ public class FindCommand implements Command{
      * Executes the command to find tasks in the task list.
      *
      * @param taskList The task list to find tasks from.
-     * @param ui The user interface to print messages.
      * @param storage The storage to save the task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         int counter = 1;
         List<Task> tasks = taskList.getTaskList();
         StringBuilder res = new StringBuilder("Here are the matching tasks in your list:\n");
 
         String[] input = search.split(" ");
         if (input.length > 2) {
-            ui.printError("Please enter only one keyword to search for");
-            return;
+            return "Please enter only one keyword to search for";
         }
         String keyword = input[1];
 
@@ -51,10 +47,10 @@ public class FindCommand implements Command{
         }
 
         if (counter == 1) {
-            ui.printResponse("There are no matching tasks in your list.");
+            return "There are no matching tasks in your list.";
         } else {
             res.setLength(res.length() - 1);
-            ui.printResponse(res.toString());
+            return res.toString();
         }
     }
 }

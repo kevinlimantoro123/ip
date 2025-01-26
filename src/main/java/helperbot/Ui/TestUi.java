@@ -7,16 +7,6 @@ public class TestUi extends Ui {
     private String output;
 
     /**
-     * Constructor for TestUi.
-     *
-     * @param response Output of the user interface
-     */
-    @Override
-    public void printResponse(String response) {
-        output = response;
-    }
-
-    /**
      * Prints an error message.
      *
      * @param error Error message to be printed

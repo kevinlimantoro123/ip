@@ -32,7 +32,7 @@ public class MarkCommandTest {
         String expected = "[T][X] todo 3";
 
         MarkCommand markCommand = new MarkCommand(3);
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
 
         assertTrue(tasks.getTask(2).isDone());
         assertEquals(expected, tasks.getTask(2).toString());
@@ -53,7 +53,7 @@ public class MarkCommandTest {
         String expected = "Please enter a valid task number";
 
         MarkCommand markCommand = new MarkCommand(10);
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
 
         assertEquals(expected, ui.getOutput());
         for (Task task : tasks.getTaskList()) {
@@ -74,9 +74,9 @@ public class MarkCommandTest {
         Storage storage = new Storage("data/test.txt");
 
         MarkCommand markCommand = new MarkCommand(3);
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
 
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
 
         String expected = "This task is ALREADY done!";
         assertEquals(expected, ui.getOutput());

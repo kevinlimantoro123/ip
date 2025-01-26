@@ -35,12 +35,12 @@ public class UnmarkCommandTest {
         String expectedUnmark = "[T][ ] todo 3";
 
         MarkCommand markCommand = new MarkCommand(3);
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
         assertTrue(tasks.getTask(2).isDone());
         assertEquals(expectedMark, tasks.getTask(2).toString());
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(3);
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
         assertFalse(tasks.getTask(2).isDone());
         assertEquals(expectedUnmark, tasks.getTask(2).toString());
@@ -67,7 +67,7 @@ public class UnmarkCommandTest {
         String expected = "Please enter a valid task number";
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(10);
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
         assertEquals(expected, ui.getOutput());
         for (Task task : tasks.getTaskList()) {
@@ -87,9 +87,9 @@ public class UnmarkCommandTest {
         Storage storage = new Storage("data/test.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(3);
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
         String expected = "This task is NOT done!";
         assertEquals(expected, ui.getOutput());

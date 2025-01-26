@@ -8,8 +8,6 @@ import helperbot.task.Todo;
 import helperbot.task.Deadline;
 import helperbot.task.Event;
 
-import helperbot.Ui.Ui;
-
 import java.io.IOException;
 
 /**
@@ -31,12 +29,11 @@ public class AddCommand implements Command {
      * Executes the command to add a task.
      *
      * @param tasks The list of tasks.
-     * @param ui The user interface.
      * @param storage The storage handler.
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Storage storage) throws IOException {
         String[] parts = input.split(" ", 2);
         String taskType = parts[0];
         String description = parts.length > 1 ? parts[1] : "";
@@ -47,32 +44,28 @@ public class AddCommand implements Command {
             case "deadline" -> {
                 String[] deadlineParts = description.split(" /by ");
                 if (deadlineParts.length < 2) {
-                    ui.printError("Error: Invalid deadline format.");
-                    return;
+                    return "Error: Invalid deadline format.";
                 }
                 newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
             }
             case "event" -> {
                 String[] eventParts = description.split(" /from ");
                 if (eventParts.length < 2) {
-                    ui.printError("Error: Invalid event format.");
-                    return;
+                    return "Error: Invalid deadline format.";
                 }
                 String[] eventTimes = eventParts[1].split(" /to ");
                 if (eventTimes.length < 2) {
-                    ui.printError("Error: Invalid event timing format.");
-                    return;
+                    return "Error: Invalid deadline format.";
                 }
                 newTask = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
             }
             default -> {
-                ui.printError("I don't recognize that command. Please use todo, deadline or event!");
-                return;
+                return "Error: Invalid deadline format.";
             }
         }
         tasks.addTask(newTask);
         storage.saveToFile(tasks.getTaskList());
-        ui.printResponse("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have "
-                + tasks.size() + " tasks in the list.");
+        return "Got it. I've added this task:\n" + newTask.toString() + "\nNow you have "
+                + tasks.size() + " tasks in the list.";
     }
 }

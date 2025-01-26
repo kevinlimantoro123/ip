@@ -1,11 +1,9 @@
 package helperbot;
 
 import helperbot.Ui.Ui;
-import helperbot.command.Command;
-import helperbot.command.ExitCommand;
-import helperbot.parser.Parser;
 import helperbot.task.Storage;
 import helperbot.task.TaskList;
+import helperbot.response.Response;
 
 import java.io.IOException;
 
@@ -13,17 +11,15 @@ import java.io.IOException;
  * The main class of the HelperBot program.
  */
 public class HelperBot {
-    private final Storage storage;
+    private final Storage storage = new Storage("data/tasks.txt");
     private TaskList tasks;
-    private final Ui ui;
+    private final Response response = new Response();
+    private final Ui ui = new Ui();
 
     /**
      * Constructor for the HelperBot class.
-     * @param filePath The file path to the file where the tasks are stored.
      */
-    public HelperBot(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+    public HelperBot() {
         try {
             tasks = new TaskList(storage.loadTask());
         } catch (IOException e) {
@@ -33,31 +29,27 @@ public class HelperBot {
     }
 
     /**
-     * Runs the HelperBot program.
+     * Prints the welcome message.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            String fullCommand = ui.readCommand();
-            ui.printHorizontalLine();
-            Command command = Parser.parse(fullCommand);
-            try {
-                command.execute(tasks, ui, storage);
-                isExit = command instanceof ExitCommand;
-            } catch (IOException e) {
-                ui.printError("Error executing helperbot.command: " + e.getMessage());
-            }
-            ui.printHorizontalLine();
-        }
+    public String showWelcome() {
+        String logo = " _    _      _       _            ____        _   \n"
+            + "| |  | |    | |     | |          |  _ \\      | |  \n"
+            + "| |__| | ___| |_ __ | | ___   _  | |_) | ___ | |_ \n"
+            + "|  __  |/ _ \\ | '_ \\| |/ / | | | |  _ < / _ \\| __|\n"
+            + "| |  | |  __/ | |_) |   <| |_| | | |_) | (_) | |_ \n"
+            + "|_|  |_|\\___|_| .__/|_|\\_\\\\__, | |____/ \\___/ \\__|\n"
+            + "              | |          __/ |                 \n"
+            + "              |_|         |___/                  \n";
+        return logo + "\nHello! I'm helperbot\nWhat would you like to do?\n"
+            + ui.printHorizontalLine();
     }
 
-    /**
-     * The main method of the HelperBot program.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        new HelperBot("data/tasks.txt").run();
+    public String getResponse(String input) {
+        try {
+            tasks = new TaskList(storage.loadTask());
+            return response.getResponse(input, tasks);
+        } catch (IOException e) {
+            return "Error loading tasks from file: " + e.getMessage();
+        }
     }
 }
