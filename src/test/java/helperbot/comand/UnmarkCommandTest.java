@@ -1,22 +1,20 @@
 package helperbot.comand;
-
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import helperbot.task.Todo;
-import helperbot.task.Storage;
-import helperbot.task.TaskList;
-import helperbot.task.Task;
-import helperbot.command.MarkCommand;
-import helperbot.command.UnmarkCommand;
-import helperbot.Ui.TestUi;
-import helperbot.Ui.Ui;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import helperbot.command.MarkCommand;
+import helperbot.command.UnmarkCommand;
+import helperbot.task.Storage;
+import helperbot.task.Task;
+import helperbot.task.TaskList;
+import helperbot.task.Todo;
 
 public class UnmarkCommandTest {
     @Test
@@ -28,19 +26,18 @@ public class UnmarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        Ui ui = new Ui();
         Storage storage = new Storage("data/test.txt");
 
         String expectedMark = "[T][X] todo 3";
         String expectedUnmark = "[T][ ] todo 3";
 
         MarkCommand markCommand = new MarkCommand(3);
-        markCommand.execute(tasks, ui, storage);
+        markCommand.execute(tasks, storage);
         assertTrue(tasks.getTask(2).isDone());
         assertEquals(expectedMark, tasks.getTask(2).toString());
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(3);
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
         assertFalse(tasks.getTask(2).isDone());
         assertEquals(expectedUnmark, tasks.getTask(2).toString());
@@ -57,7 +54,6 @@ public class UnmarkCommandTest {
 
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         for (Task task : tasks.getTaskList()) {
@@ -67,9 +63,9 @@ public class UnmarkCommandTest {
         String expected = "Please enter a valid task number";
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(10);
-        unmarkCommand.execute(tasks, ui, storage);
+        String actual = unmarkCommand.execute(tasks, storage);
 
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
         for (Task task : tasks.getTaskList()) {
             assertTrue(task.isDone());
         }
@@ -83,15 +79,14 @@ public class UnmarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(3);
-        unmarkCommand.execute(tasks, ui, storage);
+        unmarkCommand.execute(tasks, storage);
 
-        unmarkCommand.execute(tasks, ui, storage);
+        String actual = unmarkCommand.execute(tasks, storage);
 
         String expected = "This task is NOT done!";
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
     }
 }

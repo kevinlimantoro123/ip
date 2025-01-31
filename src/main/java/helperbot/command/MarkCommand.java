@@ -1,12 +1,10 @@
 package helperbot.command;
 
+import java.io.IOException;
+
 import helperbot.task.Storage;
 import helperbot.task.Task;
 import helperbot.task.TaskList;
-
-import helperbot.Ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark tasks as done.
@@ -33,27 +31,24 @@ public class MarkCommand implements Command {
      * Prints an error message if given an invalid index.
      *
      * @param taskList list of tasks
-     * @param ui user interface
      * @param storage storage
      * @throws IOException if there is an error saving to file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, Storage storage) throws IOException {
         if (index == -2) {
-            ui.printError("You did not specify a task number. Please include it!");
-            return;
+            return "You did not specify a task number. Please include it!";
         }
         try {
             Task task = taskList.getTask(index);
             if (task.isDone()) {
-                ui.printError("This task is ALREADY done!");
-                return;
+                return "This task is ALREADY done!";
             }
             task.setDone(true);
             storage.saveToFile(taskList.getTaskList());
-            ui.printResponse("Nice! I've marked this task:\n" + task.toString());
+            return "Nice! I've marked this task:\n" + task;
         } catch (IndexOutOfBoundsException e) {
-            ui.printError("Please enter a valid task number");
+            return "Please enter a valid task number";
         }
     }
 }
