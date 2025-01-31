@@ -1,16 +1,16 @@
 package helperbot.command;
 
+import java.util.List;
+
 import helperbot.task.Storage;
 import helperbot.task.Task;
 import helperbot.task.TaskList;
 
-import java.util.List;
-
 /**
  * Represents a command to find tasks in the task list.
  */
-public class FindCommand implements Command{
-    private String search;
+public class FindCommand implements Command {
+    private final String search;
 
     /**
      * Constructs a FindCommand with the specified keyword.
@@ -41,7 +41,7 @@ public class FindCommand implements Command{
 
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().contains(keyword)) {
-                res.append(counter).append(". ").append(task.toString()).append("\n");
+                res.append(counter).append(". ").append(task).append("\n");
                 counter++;
             }
         }

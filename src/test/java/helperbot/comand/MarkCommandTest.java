@@ -9,8 +9,6 @@ import helperbot.task.Storage;
 import helperbot.task.TaskList;
 import helperbot.task.Task;
 import helperbot.command.MarkCommand;
-import helperbot.Ui.TestUi;
-import helperbot.Ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class MarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        Ui ui = new Ui();
         Storage storage = new Storage("data/test.txt");
 
         String expected = "[T][X] todo 3";
@@ -47,15 +44,14 @@ public class MarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         String expected = "Please enter a valid task number";
 
         MarkCommand markCommand = new MarkCommand(10);
-        markCommand.execute(tasks, storage);
+        String actual = markCommand.execute(tasks, storage);
 
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
         for (Task task : tasks.getTaskList()) {
             assertFalse(task.isDone());
         }
@@ -70,15 +66,14 @@ public class MarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         MarkCommand markCommand = new MarkCommand(3);
         markCommand.execute(tasks, storage);
 
-        markCommand.execute(tasks, storage);
+        String actual = markCommand.execute(tasks, storage);
 
         String expected = "This task is ALREADY done!";
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
     }
 }

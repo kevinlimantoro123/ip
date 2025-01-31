@@ -1,10 +1,10 @@
 package helperbot.command;
 
+import java.io.IOException;
+
 import helperbot.task.Storage;
 import helperbot.task.Task;
 import helperbot.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark tasks as done.
@@ -46,7 +46,7 @@ public class MarkCommand implements Command {
             }
             task.setDone(true);
             storage.saveToFile(taskList.getTaskList());
-            return "Nice! I've marked this task:\n" + task.toString();
+            return "Nice! I've marked this task:\n" + task;
         } catch (IndexOutOfBoundsException e) {
             return "Please enter a valid task number";
         }

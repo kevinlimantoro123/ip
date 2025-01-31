@@ -1,15 +1,20 @@
 package helperbot.response;
 
 import java.io.IOException;
+
 import helperbot.command.AddCommand;
 import helperbot.command.DeleteCommand;
 import helperbot.command.ExitCommand;
-import helperbot.command.MarkCommand;
-import helperbot.command.UnmarkCommand;
 import helperbot.command.FindCommand;
 import helperbot.command.ListCommand;
-import helperbot.task.TaskList;
+import helperbot.command.MarkCommand;
+import helperbot.command.UnmarkCommand;
 import helperbot.task.Storage;
+import helperbot.task.TaskList;
+
+/**
+ * Represents a response to user input.
+ */
 public class Response {
     private final Storage storage = new Storage("data/tasks.txt");
 
@@ -29,8 +34,8 @@ public class Response {
                 int deleteIndex = Integer.parseInt(input.split(" ", 2)[1].trim());
                 return new DeleteCommand(deleteIndex).execute(taskList, storage);
             case "find":
-                String searchTerm = input.split(" ", 2)[1].trim();
-                return new FindCommand(searchTerm).execute(taskList, storage);
+                String search = input.split(" ", 2)[1].trim();
+                return new FindCommand(search).execute(taskList, storage);
             case "bye":
                 return new ExitCommand().execute(taskList, storage);
             default:

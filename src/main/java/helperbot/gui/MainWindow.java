@@ -1,23 +1,19 @@
 package helperbot.gui;
 
-
+import helperbot.HelperBot;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import helperbot.HelperBot;
-
 
 /**
  * Controller for the main GUI. Provides the layout for the other controls.
  */
-
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -25,14 +21,15 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private Image userImage = new Image(
+    private final Image userImage = new Image(
         this.getClass().getResourceAsStream("/images/user.png"));
-    private Image helperBotImage = new Image(
+    private final Image helperBotImage = new Image(
         this.getClass().getResourceAsStream("/images/bot.png"));
     private HelperBot helperBot;
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -67,6 +64,4 @@ public class MainWindow extends AnchorPane {
             pause.play();
         }
     }
-
-
 }

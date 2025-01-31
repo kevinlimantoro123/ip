@@ -11,8 +11,6 @@ import helperbot.task.TaskList;
 import helperbot.task.Task;
 import helperbot.command.MarkCommand;
 import helperbot.command.UnmarkCommand;
-import helperbot.Ui.TestUi;
-import helperbot.Ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ public class UnmarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        Ui ui = new Ui();
         Storage storage = new Storage("data/test.txt");
 
         String expectedMark = "[T][X] todo 3";
@@ -57,7 +54,6 @@ public class UnmarkCommandTest {
 
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         for (Task task : tasks.getTaskList()) {
@@ -67,9 +63,9 @@ public class UnmarkCommandTest {
         String expected = "Please enter a valid task number";
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(10);
-        unmarkCommand.execute(tasks, storage);
+        String actual = unmarkCommand.execute(tasks, storage);
 
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
         for (Task task : tasks.getTaskList()) {
             assertTrue(task.isDone());
         }
@@ -83,15 +79,14 @@ public class UnmarkCommandTest {
         }
 
         TaskList tasks = new TaskList(taskList);
-        TestUi ui = new TestUi();
         Storage storage = new Storage("data/test.txt");
 
         UnmarkCommand unmarkCommand = new UnmarkCommand(3);
         unmarkCommand.execute(tasks, storage);
 
-        unmarkCommand.execute(tasks, storage);
+        String actual = unmarkCommand.execute(tasks, storage);
 
         String expected = "This task is NOT done!";
-        assertEquals(expected, ui.getOutput());
+        assertEquals(expected, actual);
     }
 }

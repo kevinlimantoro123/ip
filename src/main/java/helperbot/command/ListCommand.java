@@ -1,9 +1,9 @@
 package helperbot.command;
 
+import java.io.IOException;
+
 import helperbot.task.Storage;
 import helperbot.task.TaskList;
-
-import java.io.IOException;
 
 /**
  * Represents a command to list all tasks in the task list.
