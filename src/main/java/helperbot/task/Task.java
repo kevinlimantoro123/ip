@@ -4,9 +4,9 @@ package helperbot.task;
  * Represents a task.
  */
 public class Task {
+    protected TaskType type;
     private boolean isDone;
     private String description;
-    protected TaskType type;
 
     /**
      * Constructor for Task.
