@@ -22,14 +22,14 @@ public class UnmarkCommandTest {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            taskList.add(new Todo(String.format("todo " + (i + 1))));
+            taskList.add(new Todo(String.format("todo " + (i + 1)), 1));
         }
 
         TaskList tasks = new TaskList(taskList);
         Storage storage = new Storage("data/test.txt");
 
-        String expectedMark = "[T][X] todo 3";
-        String expectedUnmark = "[T][ ] todo 3";
+        String expectedMark = "[T][X] todo 3 (Priority: 1)";
+        String expectedUnmark = "[T][ ] todo 3 (Priority: 1)";
 
         MarkCommand markCommand = new MarkCommand(3);
         markCommand.execute(tasks, storage);
@@ -49,7 +49,7 @@ public class UnmarkCommandTest {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            taskList.add(new Todo(String.format("todo " + (i + 1))));
+            taskList.add(new Todo(String.format("todo " + (i + 1)), 1));
         }
 
 
@@ -75,7 +75,7 @@ public class UnmarkCommandTest {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            taskList.add(new Todo(String.format("todo " + (i + 1))));
+            taskList.add(new Todo(String.format("todo " + (i + 1)), 1));
         }
 
         TaskList tasks = new TaskList(taskList);
