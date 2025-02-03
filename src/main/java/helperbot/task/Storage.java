@@ -1,31 +1,49 @@
 package helperbot.task;
 
-import helperbot.parser.Parser;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.File;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import helperbot.parser.Parser;
+
+
+/**
+ * Represents the storage interface for tasks.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath File path of the data file
+     */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the data file.
+     *
+     * @return List of tasks
+     * @throws IOException If an I/O error occurs
+     */
     public List<Task> loadTask() throws IOException {
+        assert Files.exists(Path.of(filePath)) : "File does not exist";
         List<Task> taskList = new ArrayList<>();
         File data = new File(filePath);
         if (!data.exists()) {
-            throw new FileNotFoundException
-                    ("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+            throw new FileNotFoundException(
+                "The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(data))) {
             String line;
@@ -41,11 +59,18 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks to the data file.
+     *
+     * @param taskList List of tasks
+     * @throws IOException If an I/O error occurs
+     */
     public void saveToFile(List<Task> taskList) throws IOException {
+        assert taskList != null : "Tasks list should not be null";
         File data = new File(filePath);
         if (!data.exists()) {
-            throw new FileNotFoundException
-                    ("The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
+            throw new FileNotFoundException(
+                "The data file doesn't exist. Please initialise the data file in /data/tasks.txt");
         } else {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 for (Task task : taskList) {
