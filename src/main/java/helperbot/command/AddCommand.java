@@ -39,35 +39,43 @@ public class AddCommand implements Command {
         String taskType = parts[0];
         String description = parts.length > 1 ? parts[1] : "";
 
-        Task newTask;
-        switch (taskType) {
-        case "todo":
-            newTask = new Todo(description);
-            break;
-        case "deadline":
-            String[] deadlineParts = description.split(" /by ");
-            if (deadlineParts.length < 2) {
-                return "Error: Invalid deadline format.";
-            }
-            newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-            break;
-        case "event":
-            String[] eventParts = description.split(" /from ");
-            if (eventParts.length < 2) {
-                return "Error: Invalid deadline format.";
-            }
-            String[] eventTimes = eventParts[1].split(" /to ");
-            if (eventTimes.length < 2) {
-                return "Error: Invalid deadline format.";
-            }
-            newTask = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
-            break;
-        default:
-            return "Error: Invalid deadline format.";
+        Task newTask = createTask(taskType, description);
+        if (newTask == null) {
+            return "Error: Invalid command format/I don't recognize this command";
         }
         taskList.addTask(newTask);
         storage.saveToFile(taskList.getTaskList());
         return "Got it. I've added this task:\n" + newTask + "\nNow you have "
                 + taskList.size() + (taskList.size() > 1 ? " tasks in the list." : " task in the list");
+    }
+    private Task createTask(String taskType, String description) {
+        switch (taskType) {
+        case "todo":
+            return new Todo(description);
+        case "deadline":
+            return createDeadline(description);
+        case "event":
+            return createEvent(description);
+        default:
+            return null;
+        }
+    }
+    private Task createDeadline(String description) {
+        String[] parts = description.split(" /by ");
+        if (parts.length < 2) {
+            return null;
+        }
+        return new Deadline(parts[0], parts[1]);
+    }
+    private Task createEvent(String description) {
+        String[] parts = description.split(" /from ");
+        if (parts.length < 2) {
+            return null;
+        }
+        String[] times = parts[1].split(" /to ");
+        if (times.length < 2) {
+            return null;
+        }
+        return new Event(parts[0], times[0], times[1]);
     }
 }

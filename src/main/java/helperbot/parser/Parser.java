@@ -45,7 +45,6 @@ public class Parser {
             return new AddCommand(input);
         }
     }
-
     /**
      * Parses the task and returns the corresponding task.
      *
@@ -53,54 +52,64 @@ public class Parser {
      * @return The corresponding task.
      */
     public static Task parseTask(String task) {
-        char type = task.charAt(1);
+        char taskType = task.charAt(1);
         boolean isDone = task.charAt(4) == 'X';
-        String[] str;
-        String description;
-        if (isDone) {
-            str = task.split(" ", 2);
-            description = str[1];
-        } else {
-            str = task.split(" ", 3);
-            description = str[2];
-        }
+        String description = extractDescription(task, isDone);
 
-        Task newTask;
-        switch (type) {
-        case 'T':
-            newTask = new Todo(description);
-            break;
-        case 'D':
-            try {
-                String[] deadline = description.split("\\(by: ", 2);
-                String deadlineDescription = deadline[0].trim();
-                String date = deadline[1].substring(0, deadline[1].length() - 1);
-                newTask = new Deadline(deadlineDescription, date);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
-            break;
-        case 'E':
-            try {
-                String[] eventParts = description.split("\\(from: ", 2);
-                String eventDescription = eventParts[0].trim();
-                String[] eventTiming = eventParts[1].split("to: ");
-                String from = eventTiming[0].trim();
-                String to = eventTiming[1].substring(0, eventTiming[1].length() - 1);
-                newTask = new Event(eventDescription, from, to);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
-            break;
-        default:
-            newTask = null;
-            break;
-        }
+        Task newTask = createTask(taskType, description);
         if (newTask != null && isDone) {
             newTask.setDone(true);
         }
         return newTask;
+    }
+    private static Task createTask(char type, String description) {
+        switch (type) {
+        case 'T':
+            return new Todo(description);
+        case 'D':
+            return createDeadline(description);
+        case 'E':
+            return createEvent(description);
+        default:
+            return null;
+        }
+    }
+    private static int parseIndex(String[] str) {
+        assert str.length > 1 : "Command requires an index";
+        return Integer.parseInt(str[1]);
+    }
+    private static String extractDescription(String task, boolean isDone) {
+        String[] string;
+        if (isDone) {
+            string = task.split(" ", 2);
+            return string[1];
+        } else {
+            string = task.split(" ", 3);
+            return string[2];
+        }
+    }
+    private static Task createDeadline(String description) {
+        try {
+            String[] parts = description.split("\\(by: ", 2);
+            String deadlineDescription = parts[0].trim();
+            String date = parts[1].substring(0, parts[1].length() - 1);
+            return new Deadline(deadlineDescription, date);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    private static Task createEvent(String description) {
+        try {
+            String[] parts = description.split("\\(from: ", 2);
+            String eventDescription = parts[0].trim();
+            String[] times = parts[1].split("to: ");
+            String from = times[0].trim();
+            String to = times[1].substring(0, times[1].length() - 1);
+            return new Event(eventDescription, from, to);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }
