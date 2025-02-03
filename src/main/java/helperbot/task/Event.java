@@ -6,6 +6,7 @@ package helperbot.task;
 public class Event extends Task {
     protected String from;
     protected String to;
+    private final int priority;
 
     /**
      * Constructor for Event.
@@ -14,10 +15,11 @@ public class Event extends Task {
      * @param from Starting time of the event
      * @param to Ending time of the event
      */
-    public Event(String description, String from, String to) {
-        super(description, TaskType.EVENT);
+    public Event(String description, String from, String to, int priority) {
+        super(description, TaskType.EVENT, priority);
         this.from = from;
         this.to = to;
+        this.priority = priority;
     }
 
     /**
@@ -27,6 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[" + type.name().charAt(0) + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")"
+            + " (Priority: " + priority + ")";
     }
 }

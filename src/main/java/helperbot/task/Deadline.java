@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Deadline extends Task {
     protected LocalDateTime dateTime;
+    private final int priority;
 
     /**
      * Constructor for Deadline.
@@ -20,9 +21,10 @@ public class Deadline extends Task {
      * @param description Description of the deadline
      * @param dateTime Date and time of the deadline
      */
-    public Deadline(String description, String dateTime) {
-        super(description, TaskType.DEADLINE);
+    public Deadline(String description, String dateTime, int priority) {
+        super(description, TaskType.DEADLINE, priority);
         this.dateTime = parseDateTime(dateTime);
+        this.priority = priority;
     }
 
     /**
@@ -81,6 +83,7 @@ public class Deadline extends Task {
         } else {
             formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
         }
-        return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + dateTime.format(formatter) + ")"
+            + " (Priority: " + priority + ")";
     }
 }
