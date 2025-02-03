@@ -22,6 +22,7 @@ public class AddCommand implements Command {
      */
     public AddCommand(String input) {
         this.input = input;
+        assert input != null && !input.isEmpty() : "Input cannot be null or empty";
     }
 
     /**
@@ -32,6 +33,8 @@ public class AddCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws IOException {
+        assert taskList != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
         String[] parts = input.split(" ", 2);
         String taskType = parts[0];
         String description = parts.length > 1 ? parts[1] : "";
