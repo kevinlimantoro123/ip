@@ -41,7 +41,7 @@ public class DeleteCommand implements Command {
             Task task = taskList.getTask(index - 1);
             taskList.deleteTask(index - 1);
             storage.saveToFile(taskList.getTaskList());
-                return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + taskList.size()
+            return "Noted. I've removed this task:\n" + task.toString() + "\nNow you have " + taskList.size()
                     + (taskList.size() > 1 ? " tasks in the list." : " task in the list");
         } catch (IndexOutOfBoundsException e) {
             return "Please enter a valid task number";
