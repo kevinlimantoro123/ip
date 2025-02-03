@@ -24,6 +24,7 @@ public class Parser {
      * @return The corresponding command.
      */
     public static Command parse(String input) {
+        assert input != null && !input.isEmpty() : "Input should not be null or empty";
         String[] str = input.split(" ");
         String command = str[0];
 

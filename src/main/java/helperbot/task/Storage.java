@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class Storage {
      * @param filePath File path of the data file
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -35,6 +38,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs
      */
     public List<Task> loadTask() throws IOException {
+        assert Files.exists(Path.of(filePath)) : "File does not exist";
         List<Task> taskList = new ArrayList<>();
         File data = new File(filePath);
         if (!data.exists()) {
@@ -62,6 +66,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs
      */
     public void saveToFile(List<Task> taskList) throws IOException {
+        assert taskList != null : "Tasks list should not be null";
         File data = new File(filePath);
         if (!data.exists()) {
             throw new FileNotFoundException(
