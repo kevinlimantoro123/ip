@@ -7,9 +7,23 @@ public class Task {
     protected TaskType type;
     private boolean isDone;
     private String description;
+    private int priority;
 
     /**
-     * Constructor for Task.
+     * Constructor for Task with a priority
+     *
+     * @param description Description of the task
+     * @param type Type of the task
+     */
+    public Task(String description, TaskType type, int priority) {
+        this.isDone = false;
+        this.description = description.trim();
+        this.type = type;
+        this.priority = priority;
+    }
+
+    /**
+     * Constructor for Task with no priority
      *
      * @param description Description of the task
      * @param type Type of the task
@@ -18,6 +32,7 @@ public class Task {
         this.isDone = false;
         this.description = description.trim();
         this.type = type;
+        this.priority = 0;
     }
 
     /**
@@ -46,7 +61,23 @@ public class Task {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+    /**
+     * Sets the priority of the task.
+     *
+     * @param priority The priority to set.
+     */
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
 
+    /**
+     * Gets the priority of the task.
+     *
+     * @return The task priority.
+     */
+    public int getPriority() {
+        return priority;
+    }
     /**
      * Returns the string representation of the task
      *
@@ -54,11 +85,13 @@ public class Task {
      */
     @Override
     public String toString() {
+        String res;
         if (isDone) {
-            return "[X] " + description;
+            res = "[X] " + description;
         } else {
-            return "[ ] " + description;
+            res = "[ ] " + description;
         }
+        return res;
     }
 }
 

@@ -19,58 +19,67 @@ public class Parser {
         char taskType = task.charAt(1);
         boolean isDone = task.charAt(4) == 'X';
         String description = extractDescription(task, isDone);
+        int priority = extractPriority(task);
 
-        Task newTask = createTask(taskType, description);
+        Task newTask = createTask(taskType, description, priority);
         if (newTask != null && isDone) {
             newTask.setDone(true);
         }
         return newTask;
     }
-    private static Task createTask(char type, String description) {
+    private static int extractPriority(String task) {
+        String[] parts = task.split("Priority: ");
+        return parts.length > 1 ? Integer.parseInt(parts[1].replace(")", "")) : 0;
+    }
+    private static Task createTask(char type, String description, int priority) {
         switch (type) {
         case 'T':
-            return new Todo(description);
+            return new Todo(description, priority);
         case 'D':
-            return createDeadline(description);
+            return createDeadline(description, priority);
         case 'E':
-            return createEvent(description);
+            return createEvent(description, priority);
         default:
             return null;
         }
     }
-    private static int parseIndex(String[] str) {
-        assert str.length > 1 : "Command requires an index";
-        return Integer.parseInt(str[1]);
-    }
     private static String extractDescription(String task, boolean isDone) {
-        String[] string;
+        String[] parts = task.split("\\(Priority: ");
+        String descriptionPart = parts[0];
+        System.out.println(descriptionPart);
         if (isDone) {
-            string = task.split(" ", 2);
-            return string[1];
+            return descriptionPart.split(" ", 2)[1];
         } else {
-            string = task.split(" ", 3);
-            return string[2];
+            return descriptionPart.split(" ", 3)[2];
         }
     }
-    private static Task createDeadline(String description) {
+    private static Task createDeadline(String description, int priority) {
         try {
-            String[] parts = description.split("\\(by: ", 2);
+            System.out.println("Received deadline description: " + description);
+            String[] parts = description.split(" \\(by: ");
+            if (parts.length < 2) {
+                System.out.println("Invalid deadline format: " + description);
+                return null;
+            }
             String deadlineDescription = parts[0].trim();
-            String date = parts[1].substring(0, parts[1].length() - 1);
-            return new Deadline(deadlineDescription, date);
+            String date = parts[1].split("\\)")[0].trim();
+            return new Deadline(deadlineDescription, date, priority);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-    private static Task createEvent(String description) {
+    private static Task createEvent(String description, int priority) {
         try {
             String[] parts = description.split("\\(from: ", 2);
+            if (parts.length < 2) {
+                return null;
+            }
             String eventDescription = parts[0].trim();
             String[] times = parts[1].split("to: ");
             String from = times[0].trim();
-            String to = times[1].substring(0, times[1].length() - 1);
-            return new Event(eventDescription, from, to);
+            String to = parts[1].split("\\)")[0].trim();
+            return new Event(eventDescription, from, to, priority);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
             return null;
