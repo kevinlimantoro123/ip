@@ -18,7 +18,7 @@ import helperbot.parser.Parser;
  * Represents the storage interface for tasks.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructor for Storage
