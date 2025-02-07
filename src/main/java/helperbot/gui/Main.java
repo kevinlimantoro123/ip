@@ -18,6 +18,11 @@ public class Main extends Application {
      */
     private final HelperBot helperBot = new HelperBot();
 
+    /**
+     * Starts the GUI application.
+     *
+     * @param stage The stage for the GUI application
+     */
     @Override
     public void start(Stage stage) {
         try {
