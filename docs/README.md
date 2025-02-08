@@ -1,4 +1,4 @@
-# Tars ChatBot User Guide
+# HelperBot ChatBot User Guide
 
 ![Ui.png](Ui.png)
 
@@ -21,7 +21,6 @@ The chatbot has a simple GUI to display its responses to the users and errors ar
     - [Exit](#exit)
 - [Features](#features)
   - [Priority](#priority)
-  - [Automatic exiting of chatbot](#automatic-exiting-of-chatbot)
 
 # Quick Start
 
@@ -53,14 +52,15 @@ The chatbot has a simple GUI to display its responses to the users and errors ar
 # Commands
 
 > Note:
-> For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory.
+> For all commands, arguments for the command are located within the curly brackets `{}` (THESE FIELDS ARE NEEDED TO RUN).
 > The curly brackets not meant to be typed in the command itself.
 > Additionally, avoid using the `/` character in the task name as it is reserved for specifying certain commands
+> Please see the table below for mroe details
 
 ---
 
 | Index |       Command       |                        Format                         |                    Example                    |
-| :---: | :-----------------: | :---------------------------------------------------: | :-------------------------------------------: |
+|:-----:|:-------------------:|:-----------------------------------------------------:|:---------------------------------------------:|
 |   1   |   Add a Todo task   |                  `todo {task name}`                   |                `todo homework`                |
 |   2   | Add a Deadline task |      `deadline {task name} /by {deadline date}`       |       `deadline submit ip /by 20-09-24`       |
 |   3   |  Add a Event task   | `event {task name} /from {start date} /to {end date}` | `event hackathon /from 23-09-24 /to 25-09-24` |
@@ -68,7 +68,7 @@ The chatbot has a simple GUI to display its responses to the users and errors ar
 |   5   |     Mark a task     |                 `mark {task number}`                  |                   `mark 1`                    |
 |   6   |    Unmark a task    |                `unmark {task number}`                 |                  `unmark 1`                   |
 |   7   |    Delete a task    |                `delete {task number}`                 |                  `delete 1`                   |
-|   8   |    Find task(s)     |                 `find {search word}`                  |                   `find ip`                   |
+|   8   |    Find task(s)     |                 `find {search word}`                  |                  `find book`                  |
 |   9   |    Give priority    |             `{task command} /p {number}`              |             `todo homework /p 2`              |
 |  10   |        Exit         |                         `bye`                         |                     `bye`                     |
 
@@ -87,65 +87,79 @@ Command example: `todo finish homework` will create a ToDo task to finish homewo
 Expected output:
 
 ```
-Added yet another task
-    [T][] fetch homework
-You now have 1 tasks. Are you gonna do any of them?
+Got it. I've added this task:
+[T][] finish homework (Priority: 0)
+Now you have 1 task in the list.
 ```
 
 ### Deadline
 
-A Deadline, as the name suggests, is a task with a fixed deadline.
+A Deadline is a task with an end date
 
-The date specified in the command needs to be in the `dd-MM-yy` format. For example 22nd of September 2024 will be represented as `22-09-24`
+The date specified in the command can be in the following formats (with or without hour/minute):
+
+`yyyy-MM-dd` or `yyyy-MM-dd HHmm`
+`yyyy/MM/dd` or `yyyy/MM/dd HHmm`
+`dd-MM-yyyy` or `dd-MM-yyyy HHmm`
+`dd/MM/yyyy` or `dd/MM/yyyy HHmm`
+`MMM dd yyyy` or `MMM dd yyyy hh:mma`
 
 Command format: `deadline {task name} /by {deadline date}`
 
-Command example: `deadline submit CS2103T IP /by 22-09-24`
+Command example: `deadline submit assignment /by 15-01-2025 1645`
 
 Expected Output:
 
 ```
-Added yet another task
-    [D][] submit CS2103T IP  (by: Sep 22 2024)
-You now have 2 tasks. Are you gonna do any of them?
+Got it. I've added this task:
+[D][] submit assignment (by: Jan 15 2025 04:45PM) (Priority: 0)
+Now you have 1 task in the list.
 ```
 
 ### Event
 
 An event is a task with a start date and an end date.
 
-Similar to creating a Deadline task, the dates specified in the command needs to be in the `dd-MM-yy` format
+The dates specified in the command has to be in the same formats as the deadline formats:
+
+`yyyy-MM-dd` or `yyyy-MM-dd HHmm`
+`yyyy/MM/dd` or `yyyy/MM/dd HHmm`
+`dd-MM-yyyy` or `dd-MM-yyyy HHmm`
+`dd/MM/yyyy` or `dd/MM/yyyy HHmm`
+`MMM dd yyyy` or `MMM dd yyyy hh:mma`
 
 Command format: `event {task name} /from {start date} /to {end date}`
 
-Command example: `event train for IPPT /from 17-09-24 /to 21-09-24`
+Command example: `event go on holiday /from 01-01-2025 /to 01-03-2025`
 
 Expected Output:
 
 ```
-Added yet another task
-    [E][] train for IPPT  (from: Sep 17 2024 to: Sep 21 2024)
-You now have 2 tasks. Are you gonna do any of them?
+Got it. I've added this task:
+[E][] go on holiday (from: Jan 01 2025 to: Mar 01 2025) (Priority: 0)
+Now you have 1 task in the list.
 ```
 
 ## Listing tasks
 
-To print all the tasks that have been created simply type the command `list`
+To print all the tasks that have been created simply type the command `list`.
+
+Assuming you followed the previous 3 steps above, the list should look as given below.
 
 Command format: `list`
 
 Expected output:
 
 ```
-Here are your tasks, champ. Let's see how many you can actually cross off.
-1. [E] [ ] train for IPPT (from: Sep 17 2024 to: Sep 21 2024)
-2. [D] [ ] submit CS2103T IP (by: Sep 22 2024)
-3. [T] [ ] fetch laundry
+Here are the tasks in your list:
+1. [T][] finish homework (Priority: 0)
+2. [D][] submit assignment (by: Jan 15 2025 04:45PM) (Priority: 0)
+3. [E][] go on holiday (from: Jan 01 2025 to: Mar 01 2025) (Priority: 0)
 ```
 
 ## Marking tasks
 
-Marking tasks allows users to mark tasks as done.
+Users can mark tasks that they have finished by specifying an index
 
 Command format: `mark {task number}`
 
@@ -154,11 +168,11 @@ Command example: `mark 1`
 Expected output:
 
 ```
-Task complete. If I had arms, I might give you a pat on the back.
-[E] [X] train for IPPT (from: Sep 17 2024 to: Sep 21 2024)
+Nice! I've marked this task:
+[T][X] finish homework (Priority: 0)
 ```
 
-Similarly, unmarking tasks allows users to unmark tasks.
+Users can unmark tasks that they have finished by specifying an index
 
 Command format: `unmark {task number}`
 
@@ -167,13 +181,13 @@ Command example: `unmark 1`
 Expected output:
 
 ```
-Task undone. No worries, I won't judge... much.
-[E] [ ] train for IPPT (from: Sep 17 2024 to: Sep 21 2024)
+Nice! I've unmarked this task:
+[T][] finish homework (Priority: 0)
 ```
 
 ## Deleting tasks
 
-Users can also delete tasks with the `delete` keyword.
+Users can also delete tasks with the `delete` command.
 
 Command format: `delete {task number}`
 
@@ -182,51 +196,54 @@ Command example: `delete 1`
 Expected output:
 
 ```
-Wow you're freeing yourself up
-   [E] [X] train for IPPT (from: Sep 17 2024 to: Sep 21 2024)
-You now have 2 tasks left
+Noted. I've removed this task:
+[T][] finish homework (Priority: 0)
+Now you have 2 tasks in the list.
 ```
 
 ## Finding Tasks
 
-Users can quickly find tasks by searching for a word/letter in the task name. All the tasks that contain the search word/letter will be shown in the order in which they appear in the list along with the respective task number.
+Users can find all tasks that match the keyword given. The original index of the task is also displayed
 
 Command format: `find {search word}`
 
-Command example: `find laundry`
+Command example: `find assignment`
 
 Expected output:
 
 ```
 Here are the tasks found.
-2. [T] [ ] fetch laundry
+2. [D][] submit assignment (by: Jan 15 2025 04:45PM) (Priority: 0)
 ```
 
 ## Exit
 
-Users can exit the chatbot with the `bye` command. After 3.5 seconds, the app will automatically close.
+Users can exit the chatbot with the `bye` command. After 2 seconds, the app will automatically close.
 
 Command format: `bye`
 
 Expected output:
 
 ```
-Well, that's a wrap! If you need anything else, just holler.
-But let’s be honest, you’re probably better off asking someone else.
+Bye! Hope to see you again soon!
 ```
 
 # Features
 
-## Sorting of tasks
+## Priority
 
-Whenever tasks are added they are automatically sorted in chronological order by the end date of the task. Hence, tasks with the earliest end date being shown at the top of the list. As such `ToDo` tasks have the lowest priority and will be shown at the bottom of the list whereas for `Deadline` and `Event` tasks, the deadline date/end date will be compared to determine which tasks takes precedence over the other.
+Users can specify the priority of their tasks by adding `/p {number}` after a task command. This will label the corresponding task with a priority value
 
-This is done to ensure that the tasks that are due soon have the most visibility and can be clearly seen at the top of the list.
+Users can also choose to not include a priority for their tasks and it will be given a default priority of 0.
 
-## Automatic exiting of chatbot
+Command format: `{task command} /p {number}`
 
-After typing the `bye` command, the program will pause for 2 seconds to allow for users to read the exit message before automatically exiting the app.
+Command example: `todo study for test /p 5`
 
-This is a quality of life feature to ensure that users to not need to use additional inputs, such as a mouse click, to close the app and instead have it automatically done for the user.
+Expected outpu:
 
-Additionally, this aligns with the original goal of this greenfield Java project to make a chatbot that is optimised for users who prefer to type commands to add tasks rather than use a GUI to do the same
+```
+Got it. I've added this task:
+[T][] study for test (Priority: 5)
+Now you have 1 task in the list.
+```
