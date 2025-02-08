@@ -29,24 +29,25 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        int counter = 1;
+        boolean found = false;
         List<Task> tasks = taskList.getTaskList();
         StringBuilder res = new StringBuilder("Here are the matching tasks in your list:\n");
 
         String[] input = search.split(" ");
-        if (input.length > 2) {
+        if (input.length != 1) {
             return "Please enter only one keyword to search for";
         }
-        String keyword = input[1];
+        String keyword = input[0];
 
-        for (Task task : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (task.getDescription().toLowerCase().contains(keyword)) {
-                res.append(counter).append(". ").append(task).append("\n");
-                counter++;
+                res.append(i + 1).append(". ").append(task).append("\n");
+                found = true;
             }
         }
 
-        if (counter == 1) {
+        if (!found) {
             return "There are no matching tasks in your list.";
         } else {
             res.setLength(res.length() - 1);
