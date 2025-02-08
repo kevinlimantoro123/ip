@@ -41,10 +41,10 @@ public class Response {
             default:
                 return new AddCommand(input).execute(taskList, storage);
             }
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         } catch (IOException e) {
             return "Error executing command: " + e.getMessage();
-        } catch (NumberFormatException e) {
-            return "Error: Invalid number format.";
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Error: Missing argument.";
         }

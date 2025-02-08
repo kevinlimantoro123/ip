@@ -65,7 +65,6 @@ public class Deadline extends Task {
                 // Continue to next formatter
             }
         }
-
         throw new IllegalArgumentException(
             "Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }

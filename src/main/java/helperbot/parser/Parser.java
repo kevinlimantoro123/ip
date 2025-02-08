@@ -55,7 +55,6 @@ public class Parser {
     }
     private static Task createDeadline(String description, int priority) {
         try {
-            System.out.println("Received deadline description: " + description);
             String[] parts = description.split(" \\(by: ");
             if (parts.length < 2) {
                 System.out.println("Invalid deadline format: " + description);
@@ -78,7 +77,7 @@ public class Parser {
             String eventDescription = parts[0].trim();
             String[] times = parts[1].split("to: ");
             String from = times[0].trim();
-            String to = parts[1].split("\\)")[0].trim();
+            String to = times[1].split("\\)")[0].trim();
             return new Event(eventDescription, from, to, priority);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
