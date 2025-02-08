@@ -98,11 +98,11 @@ A Deadline is a task with an end date
 
 The date specified in the command can be in the following formats (with or without hour/minute):
 
-`yyyy-MM-dd` or `yyyy-MM-dd HHmm`
-`yyyy/MM/dd` or `yyyy/MM/dd HHmm`
-`dd-MM-yyyy` or `dd-MM-yyyy HHmm`
-`dd/MM/yyyy` or `dd/MM/yyyy HHmm`
-`MMM dd yyyy` or `MMM dd yyyy hh:mma`
+`yyyy-MM-dd` or `yyyy-MM-dd HHmm` <br>
+`yyyy/MM/dd` or `yyyy/MM/dd HHmm` <br>
+`dd-MM-yyyy` or `dd-MM-yyyy HHmm` <br>
+`dd/MM/yyyy` or `dd/MM/yyyy HHmm` <br>
+`MMM dd yyyy` or `MMM dd yyyy hh:mma` <br>
 
 Command format: `deadline {task name} /by {deadline date}`
 
@@ -122,11 +122,11 @@ An event is a task with a start date and an end date.
 
 The dates specified in the command has to be in the same formats as the deadline formats:
 
-`yyyy-MM-dd` or `yyyy-MM-dd HHmm`
-`yyyy/MM/dd` or `yyyy/MM/dd HHmm`
-`dd-MM-yyyy` or `dd-MM-yyyy HHmm`
-`dd/MM/yyyy` or `dd/MM/yyyy HHmm`
-`MMM dd yyyy` or `MMM dd yyyy hh:mma`
+`yyyy-MM-dd` or `yyyy-MM-dd HHmm` <br>
+`yyyy/MM/dd` or `yyyy/MM/dd HHmm` <br>
+`dd-MM-yyyy` or `dd-MM-yyyy HHmm` <br>
+`dd/MM/yyyy` or `dd/MM/yyyy HHmm` <br>
+`MMM dd yyyy` or `MMM dd yyyy hh:mma` <br>
 
 Command format: `event {task name} /from {start date} /to {end date}`
 
