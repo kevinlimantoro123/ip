@@ -16,7 +16,15 @@ import helperbot.task.Task;
 import helperbot.task.TaskList;
 import helperbot.task.Todo;
 
+/**
+ * Represents a test class for UnmarkCommand.
+ */
 public class UnmarkCommandTest {
+    /**
+     * Tests the unmark command.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void testUnmark() throws IOException {
         List<Task> taskList = new ArrayList<>();
@@ -44,6 +52,11 @@ public class UnmarkCommandTest {
 
     }
 
+    /**
+     * Tests the unmark command with an out-of-bounds task number.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void testUnmarkOutOfBounds() throws IOException {
         List<Task> taskList = new ArrayList<>();
@@ -70,6 +83,11 @@ public class UnmarkCommandTest {
             assertTrue(task.isDone());
         }
     }
+    /**
+     * Tests the unmark command with a task that is already done.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void testUnmarkAlreadyDone() throws IOException {
         List<Task> taskList = new ArrayList<>();

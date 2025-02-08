@@ -15,9 +15,17 @@ import helperbot.task.Task;
 import helperbot.task.TaskList;
 import helperbot.task.Todo;
 
+/**
+ * Represents a test class for MarkCommand.
+ */
 public class MarkCommandTest {
+    /**
+     * Tests the mark command.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
-    public void testMark() throws IOException {
+    public void testMarkTodo() throws IOException {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -36,6 +44,11 @@ public class MarkCommandTest {
         assertEquals(expected, tasks.getTask(2).toString());
     }
 
+    /**
+     * Tests the mark command with an out-of-bounds task number.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void testMarkOutOfBounds() throws IOException {
         List<Task> taskList = new ArrayList<>();
@@ -58,6 +71,11 @@ public class MarkCommandTest {
         }
     }
 
+    /**
+     * Tests the mark command with an already done task.
+     *
+     * @throws IOException If an input or output exception occurred
+     */
     @Test
     public void testMarkAlreadyDone() throws IOException {
         List<Task> taskList = new ArrayList<>();

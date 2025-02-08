@@ -22,7 +22,7 @@ public class UnmarkCommand implements Command {
         try {
             this.index = index - 1;
         } catch (NumberFormatException e) {
-            this.index = -1;
+            this.index = -2;
         }
     }
 
@@ -36,7 +36,7 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws IOException {
-        if (index == -1) {
+        if (index == -2) {
             return "You did not specify a task number. Please include it!";
         }
         try {

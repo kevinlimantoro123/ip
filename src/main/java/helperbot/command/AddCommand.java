@@ -28,6 +28,7 @@ public class AddCommand implements Command {
     /**
      * Executes the command to add a task.
      *
+     * @param taskList The task list.
      * @param storage The storage handler.
      * @throws IOException If an I/O error occurs.
      */
@@ -49,7 +50,7 @@ public class AddCommand implements Command {
         taskList.addTask(newTask);
         storage.saveToFile(taskList.getTaskList());
         return "Got it. I've added this task:\n" + newTask + "\nNow you have "
-                + taskList.size() + (taskList.size() > 1 ? " tasks in the list." : " task in the list");
+                + taskList.size() + (taskList.size() > 1 ? " tasks in the list." : " task in the list.");
     }
     private Task createTask(String taskType, String description, int priority) {
         switch (taskType) {

@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents a test class for Todo.
+ */
 public class TodoTest {
     @Test
     public void testTodoInstance() {
