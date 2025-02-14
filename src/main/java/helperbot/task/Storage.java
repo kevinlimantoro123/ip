@@ -28,6 +28,23 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null : "File path should not be null";
         this.filePath = filePath;
+        createNewFile();
+    }
+
+    /**
+     * Creates a new data file if it does not exist.
+     */
+    private void createNewFile() {
+        File data = new File(filePath);
+        if (!data.exists()) {
+            try {
+                System.out.println("Data file not found. Creating new data file...");
+                Files.createDirectories(data.getParentFile().toPath());
+                data.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
