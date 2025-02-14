@@ -76,7 +76,7 @@ The chatbot has a simple GUI to display its responses to the users and errors ar
 
 ## Adding Tasks
 
-### ToDo
+### Todo
 
 A ToDo is a simple task that has no start date and no deadline.
 

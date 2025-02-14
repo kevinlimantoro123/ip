@@ -18,6 +18,13 @@ import helperbot.task.TaskList;
 public class Response {
     private final Storage storage = new Storage("data/tasks.txt");
 
+    /**
+     * Returns the response to the user input.
+     *
+     * @param input The user input.
+     * @param taskList The list of tasks.
+     * @return The response to the user input.
+     */
     public String getResponse(String input, TaskList taskList) {
         String command = input.split(" ", 2)[0].trim();
         try {

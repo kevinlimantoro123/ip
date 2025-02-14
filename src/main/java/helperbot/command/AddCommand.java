@@ -73,7 +73,8 @@ public class AddCommand implements Command {
             }
             String deadlineDescription = parts[0].trim();
             String date = parts[1].split("\\(Priority: ")[0].trim();
-            System.out.println("Parsed deadline: " + deadlineDescription + ", Date: " + date + ", Priority: " + priority);
+            System.out.println("Parsed deadline: " + deadlineDescription + ", Date: "
+                    + date + ", Priority: " + priority);
             return new Deadline(deadlineDescription, date, priority);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Error parsing deadline: " + e.getMessage());
@@ -95,7 +96,8 @@ public class AddCommand implements Command {
             }
             String from = times[0].trim();
             String to = times[1].split("\\(Priority: ")[0].trim();
-            System.out.println("Parsed event: " + eventDescription + ", From: " + from + ", To: " + to + ", Priority: " + priority);
+            System.out.println("Parsed event: " + eventDescription + ", From: " + from + ", To: "
+                    + to + ", Priority: " + priority);
             return new Event(eventDescription, from, to, priority);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Error parsing event: " + e.getMessage());

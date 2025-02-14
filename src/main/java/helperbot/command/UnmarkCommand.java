@@ -46,7 +46,6 @@ public class UnmarkCommand implements Command {
             }
             task.setDone(false);
             storage.saveToFile(taskList.getTaskList());
-            task.setDone(false);
             return "Nice! I've unmarked this task:\n" + task;
         } catch (IndexOutOfBoundsException e) {
             return "Please enter a valid task number";
