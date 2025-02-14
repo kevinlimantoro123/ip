@@ -1,6 +1,5 @@
 package helperbot.task;
 
-import helperbot.HelperBot;
 import helperbot.exceptions.HelperBotException;
 
 /**
