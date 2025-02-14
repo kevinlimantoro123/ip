@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+import helperbot.exceptions.HelperBotException;
 
 /**
  * Represents an event task.
@@ -31,8 +32,12 @@ public class Event extends Task {
         this.to = parseDateTime(to);
         this.priority = priority;
 
+        if (description == null || description.trim().isEmpty()) {
+            throw new HelperBotException("Description of event cannot be empty");
+        }
+
         if (this.to.isBefore(this.from)) {
-            throw new IllegalArgumentException("End date cannot be before start date");
+            throw new HelperBotException("End date cannot be before start date");
         }
 
         if (this.from.toLocalTime().equals(LocalDateTime.MIN.toLocalTime())) {
@@ -78,7 +83,7 @@ public class Event extends Task {
                 // Continue to next formatter
             }
         }
-        throw new IllegalArgumentException(
+        throw new HelperBotException(
             "Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }
     /**

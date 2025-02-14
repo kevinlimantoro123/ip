@@ -9,6 +9,7 @@ import helperbot.command.FindCommand;
 import helperbot.command.ListCommand;
 import helperbot.command.MarkCommand;
 import helperbot.command.UnmarkCommand;
+import helperbot.exceptions.HelperBotException;
 import helperbot.task.Storage;
 import helperbot.task.TaskList;
 
@@ -48,7 +49,7 @@ public class Response {
             default:
                 return new AddCommand(input).execute(taskList, storage);
             }
-        } catch (IllegalArgumentException e) {
+        } catch (HelperBotException e) {
             return e.getMessage();
         } catch (IOException e) {
             return "Error executing command: " + e.getMessage();

@@ -1,5 +1,6 @@
 package helperbot.parser;
 
+
 import helperbot.task.Deadline;
 import helperbot.task.Event;
 import helperbot.task.Task;
@@ -32,6 +33,9 @@ public class Parser {
         return parts.length > 1 ? Integer.parseInt(parts[1].replace(")", "")) : 0;
     }
     private static Task createTask(char type, String description, int priority) {
+        if (description == null || description.trim().isEmpty()) {
+            return null;
+        }
         switch (type) {
         case 'T':
             return new Todo(description, priority);

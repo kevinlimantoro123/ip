@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+import helperbot.exceptions.HelperBotException;
 
 /**
  * Represents a deadline task.
@@ -25,6 +26,9 @@ public class Deadline extends Task {
         super(description, TaskType.DEADLINE, priority);
         this.dateTime = parseDateTime(dateTime);
         this.priority = priority;
+        if (description == null || description.trim().isEmpty()) {
+            throw new HelperBotException("Description of deadline cannot be empty");
+        }
     }
 
     /**
@@ -65,7 +69,7 @@ public class Deadline extends Task {
                 // Continue to next formatter
             }
         }
-        throw new IllegalArgumentException(
+        throw new HelperBotException(
             "Invalid date format. Please use yyyy-MM-dd, yyyy/MM/dd, dd-MM-yyyy, or dd/MM/yyyy");
     }
 

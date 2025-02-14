@@ -1,5 +1,8 @@
 package helperbot.task;
 
+import helperbot.HelperBot;
+import helperbot.exceptions.HelperBotException;
+
 /**
  * Represents a todo task.
  */
@@ -13,7 +16,9 @@ public class Todo extends Task {
     public Todo(String description, int priority) {
         super(description, TaskType.TODO, priority);
         this.priority = priority;
-        assert !description.isEmpty() : "Description of todo cannot be empty";
+        if (description == null || description.trim().isEmpty()) {
+            throw new HelperBotException("Description of todo cannot be empty");
+        }
     }
 
     /**

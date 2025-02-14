@@ -61,28 +61,6 @@ public class Task {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
-    /**
-     * Sets the priority of the task.
-     *
-     * @param priority The priority to set.
-     */
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * Gets the priority of the task.
-     *
-     * @return The task priority.
-     */
-    public int getPriority() {
-        return priority;
-    }
-    /**
-     * Returns the string representation of the task
-     *
-     * @return String representation of the task
-     */
     @Override
     public String toString() {
         String res;
