@@ -26,7 +26,7 @@ The chatbot has a simple GUI to display its responses to the users and errors ar
 
 1. **Download `helperBot.jar`**
 
-   - Go to the repository's [releases page](https://github.com/kevinlimantoro123/ip/releases/tag/A-Release) and download the `tars.jar` file from the release tagged with `A-Release`.
+   - Go to the repository's [releases page](https://github.com/kevinlimantoro123/ip/releases/tag/v0.2) and download the `tars.jar` file from the release tagged with `A-Release`.
 
 2. **Save the File**
 
