@@ -29,7 +29,7 @@ public class FindCommand implements Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        boolean found = false;
+        boolean isFound = false;
         List<Task> tasks = taskList.getTaskList();
         StringBuilder res = new StringBuilder("Here are the matching tasks in your list:\n");
 
@@ -43,11 +43,11 @@ public class FindCommand implements Command {
             Task task = tasks.get(i);
             if (task.getDescription().toLowerCase().contains(keyword)) {
                 res.append(i + 1).append(". ").append(task).append("\n");
-                found = true;
+                isFound = true;
             }
         }
 
-        if (!found) {
+        if (!isFound) {
             return "There are no matching tasks in your list.";
         } else {
             res.setLength(res.length() - 1);
